@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AskArrow • Arrow Electronics</title>
+  <meta name="description" content="Welcome to AskArrow — explore Arrow's Solution Lab and connect with our AI assistant." />
+
+  <!-- Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b0f14;
+      --panel: rgba(255, 255, 255, 0.06);
+      --panel-strong: rgba(255, 255, 255, 0.12);
+      --text: #e6ebf3;
+      --muted: #b3bed0;
+      --brand: #27f3b2; /* Arrow green accent */
+      --brand-2: #4ac7ff; /* cyan accent */
+      --ring: rgba(39, 243, 178, 0.35);
+      --shadow: 0 10px 30px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+
+    /* Base */
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: radial-gradient(1200px 600px at 85% -10%, rgba(74,199,255,0.12), transparent 60%),
+                  radial-gradient(900px 500px at -10% 10%, rgba(39,243,178,0.12), transparent 55%),
+                  var(--bg);
+      background-attachment: fixed;
+      line-height: 1.55;
+      letter-spacing: 0.2px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1200px, 92vw); margin: 0 auto; }
+
+    /* Top Nav */
+    header {
+      position: sticky; top: 0; z-index: 40;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(8,12,18,0.7), rgba(8,12,18,0.25));
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 0;
+    }
+    .brand {
+      display: grid; grid-auto-flow: column; gap: 12px; align-items: center;
+    }
+    .brand img { height: 30px; filter: drop-shadow(0 2px 4px rgba(0,0,0,.35)); }
+    .brand .wordmark { font-family: "Space Grotesk", Inter, sans-serif; font-weight: 700; letter-spacing: 0.2px; }
+
+    .pill {
+      display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius: 999px;
+      background: linear-gradient(135deg, rgba(39,243,178,0.14), rgba(74,199,255,0.18));
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.02);
+      font-weight: 600; font-size: 13px; color: #eafff8;
+    }
+
+    nav ul { display: flex; gap: 18px; list-style: none; margin: 0; padding: 0; }
+    nav a { color: var(--muted); font-weight: 600; font-size: 14px; opacity: 0.95; }
+    nav a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero { position: relative; overflow: hidden; }
+    .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 42px; padding: 64px 0 48px; }
+    .headline {
+      font-family: "Space Grotesk", Inter, sans-serif; font-weight: 800; font-size: clamp(36px, 3.2vw + 12px, 64px);
+      line-height: 1.05; margin: 10px 0 16px;
+      letter-spacing: -0.5px;
+    }
+    .subtitle { color: var(--muted); font-size: 18px; max-width: 62ch; }
+
+    .cta-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+    .btn {
+      padding: 12px 18px; border-radius: 14px; font-weight: 700; font-size: 15px; letter-spacing: 0.2px;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      box-shadow: var(--shadow);
+      transition: transform .15s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 14px 40px rgba(0,0,0,.55); }
+    .btn.primary { background: linear-gradient(135deg, rgba(39,243,178,0.25), rgba(74,199,255,0.18)); border-color: rgba(39,243,178,0.45); }
+
+    .glass {
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: 22px;
+      display: grid; gap: 16px;
+      align-self: start;
+    }
+    .badge { font-size: 12px; letter-spacing: 0.3px; color: #c8ffe9; font-weight: 700; }
+    .mini { color: var(--muted); font-size: 14px; }
+    .divider { height:1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.12), transparent); }
+
+    /* Feature Grid */
+    .features { padding: 68px 0 24px; }
+    .section-title { font-family: "Space Grotesk", Inter, sans-serif; font-weight: 800; font-size: 28px; margin: 0 0 8px; }
+    .section-sub { color: var(--muted); margin: 0 0 24px; }
+
+    .grid {
+      display: grid; gap: 18px;
+      grid-template-columns: repeat(12, 1fr);
+    }
+    .col-4 { grid-column: span 4; }
+    .col-6 { grid-column: span 6; }
+    .feature {
+      padding: 20px; display: grid; gap: 8px; position: relative; isolation: isolate;
+    }
+    .feature h3 { margin: 4px 0 2px; font-size: 18px; }
+    .feature p { margin: 0; color: var(--muted); font-size: 14.5px; }
+    .feature .icon {
+      width: 42px; height: 42px; display: grid; place-items: center; border-radius: 12px;
+      background: linear-gradient(135deg, rgba(39,243,178,0.27), rgba(74,199,255,0.22));
+      border: 1px solid rgba(255,255,255,0.18);
+      box-shadow: inset 0 0 0 6px rgba(255,255,255,0.02);
+    }
+
+    /* Solutions Lab */
+    .slab { padding: 64px 0; }
+    .slab .card { padding: 26px; display: grid; gap: 18px; }
+    .pillbar { display:flex; gap:8px; flex-wrap: wrap; }
+    .chip { border:1px solid rgba(255,255,255,.16); padding:6px 10px; border-radius:999px; font-size:12.5px; color:var(--muted); }
+
+    /* AskArrow */
+    .ask { padding: 64px 0; }
+    .ask .card { padding: 26px; display: grid; gap: 12px; }
+    .steps { display:grid; gap:12px; }
+    .step { display:flex; gap:12px; align-items:flex-start; }
+    .step .num { min-width: 28px; height: 28px; border-radius: 10px; display:grid; place-items:center; font-weight:800; background: var(--panel-strong); border:1px solid rgba(255,255,255,.14); }
+
+    /* FAQ */
+    .faq { padding: 48px 0 72px; }
+    details.faq-item { border: 1px solid rgba(255,255,255,.12); background: var(--panel); border-radius: 14px; padding: 16px 18px; }
+    details + details { margin-top: 12px; }
+    summary { list-style: none; cursor: pointer; font-weight: 600; }
+    summary::-webkit-details-marker { display:none; }
+    .faq-item[open] { box-shadow: 0 0 0 4px var(--ring); }
+    .faq-item p { color: var(--muted); margin: 10px 0 0; }
+
+    /* Footer */
+    footer { border-top: 1px solid rgba(255,255,255,.08); padding: 24px 0 40px; color: var(--muted); font-size: 14px; }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .hero .wrap { grid-template-columns: 1fr; padding-top: 42px; }
+      .grid { grid-template-columns: repeat(6, 1fr); }
+      .col-4 { grid-column: span 6; }
+      .col-6 { grid-column: span 6; }
+      nav ul { display:none; }
+    }
+
+    /* Accessible focus rings */
+    :focus-visible { outline: 2px solid var(--brand); outline-offset: 2px; border-radius: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Arrow Electronics home">
+        <!--
+          Replace the src below with your licensed Arrow Electronics logo asset path.
+          Example: /assets/arrow-electronics-logo.svg
+        -->
+        <img src="/assets/arrow-electronics-logo.svg" alt="Arrow Electronics logo" />
+        <span class="wordmark">Arrow</span>
+      </a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#solution-lab">Solution Lab</a></li>
+          <li><a href="#askarrow">AskArrow</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ul>
+      </nav>
+      <span class="pill" aria-hidden="true">New · AskArrow</span>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="container wrap">
+        <div>
+          <p class="pill" style="display:inline-flex; margin-bottom: 10px;">Welcome to AskArrow</p>
+          <h1 class="headline">Discover Arrow's<br/>Solution Lab & AI copilot</h1>
+          <p class="subtitle">AskArrow is your gateway to Arrow’s Solution Lab—tailored POCs, rapid prototyping, and expert guidance. Explore how we help you design, validate, and scale solutions, then dive into answers with our intuitive chatbot (embedded by you).</p>
+          <div class="cta-row">
+            <a class="btn primary" href="#solution-lab">Explore Solution Lab</a>
+            <a class="btn" href="#askarrow">How AskArrow works</a>
+          </div>
+        </div>
+
+        <aside class="hero-card glass" role="complementary" aria-label="Highlights">
+          <span class="badge">Why teams choose Arrow</span>
+          <div class="divider" aria-hidden="true"></div>
+          <div class="mini">• Architecture blueprints &amp; hands‑on labs</div>
+          <div class="mini">• Vendor‑neutral evaluations and guided pilots</div>
+          <div class="mini">• Repeatable, enterprise‑ready patterns</div>
+          <div class="divider" aria-hidden="true"></div>
+          <div class="mini">AskArrow connects you with curated docs, demos, and experts.</div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Feature grid -->
+    <section class="features">
+      <div class="container">
+        <h2 class="section-title">Built for clarity. Designed for momentum.</h2>
+        <p class="section-sub">Everything on this page is intentionally minimal yet expressive—easy on the eyes, keyboard‑friendly, and responsive by default.</p>
+
+        <div class="grid">
+          <article class="feature glass col-4">
+            <div class="icon" aria-hidden="true">⬈</div>
+            <h3>Guided discovery</h3>
+            <p>Navigate use‑cases, architectures, and best practices without clutter. High‑contrast content with subtle depth keeps focus where it matters.</p>
+          </article>
+
+          <article class="feature glass col-4">
+            <div class="icon" aria-hidden="true">⚙️</div>
+            <h3>Solution patterns</h3>
+            <p>Reusable patterns accelerate pilots—data, AI, edge, and cloud. Start small, validate quickly, scale confidently.</p>
+          </article>
+
+          <article class="feature glass col-4">
+            <div class="icon" aria-hidden="true">🧭</div>
+            <h3>Human + AI</h3>
+            <p>AskArrow complements real experts. Blend conversational answers with direct access to Arrow’s Solution Lab.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Solution Lab -->
+    <section id="solution-lab" class="slab">
+      <div class="container">
+        <div class="glass card">
+          <h2 class="section-title">Arrow Solution Lab</h2>
+          <p class="section-sub">Where ideas become validated solutions. Collaborate with engineers to test architectures, integrate toolchains, and measure real‑world impact—before committing at scale.</p>
+
+          <div class="grid" style="margin-top: 12px;">
+            <div class="col-6">
+              <div class="pillbar">
+                <span class="chip">Architecture design sprints</span>
+                <span class="chip">POC / POV buildouts</span>
+                <span class="chip">Data &amp; AI integration</span>
+                <span class="chip">Security &amp; compliance</span>
+                <span class="chip">Performance tuning</span>
+                <span class="chip">Cost modeling</span>
+              </div>
+              <ul class="mini" style="margin-top: 14px; line-height:1.7;">
+                <li>Hands‑on environments for rapid experimentation.</li>
+                <li>Vendor‑neutral guidance anchored in outcomes.</li>
+                <li>Artifacts you can reuse: diagrams, IaC snippets, and runbooks.</li>
+              </ul>
+            </div>
+            <div class="col-6">
+              <div class="glass" style="padding:16px; height:100%; display:grid; gap:10px;">
+                <strong>What you’ll leave with</strong>
+                <div class="divider" aria-hidden="true"></div>
+                <div class="mini">✅ A validated reference architecture</div>
+                <div class="mini">✅ Measured results against success criteria</div>
+                <div class="mini">✅ Next‑step roadmap &amp; adoption plan</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="cta-row" style="margin-top: 18px;">
+            <a class="btn primary" href="#askarrow" aria-label="Jump to AskArrow section">Ask about the Solution Lab</a>
+            <a class="btn" href="#faq">Read the FAQ</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AskArrow -->
+    <section id="askarrow" class="ask">
+      <div class="container">
+        <div class="glass card">
+          <h2 class="section-title">Meet AskArrow</h2>
+          <p class="section-sub">An approachable companion for quick answers, curated guidance, and smooth handoffs to humans. You’ll embed your chatbot where noted below—no input boxes here.</p>
+
+          <div class="steps">
+            <div class="step">
+              <div class="num">1</div>
+              <div>
+                <strong>Explore</strong>
+                <p class="mini">Browse topics, patterns, and Solution Lab offerings to get oriented.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">2</div>
+              <div>
+                <strong>Ask</strong>
+                <p class="mini">Use your embedded chatbot (below) to ask about architectures, integrations, or timelines.</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="num">3</div>
+              <div>
+                <strong>Engage</strong>
+                <p class="mini">Seamlessly transition to a Solution Lab session for deep‑dive workshops and POCs.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Chatbot mount placeholder -->
+          <div class="glass" style="margin-top: 14px; padding: 22px; border-style: dashed; border-width: 1.5px; border-color: rgba(255,255,255,.22);">
+            <strong>Chatbot Mount Point</strong>
+            <p class="mini">Embed your AskArrow widget here. (No input elements included—this container is a placeholder.)</p>
+            <div id="askarrow-mount" style="min-height: 220px; display:grid; place-items:center; opacity:.9;">
+              <span class="mini">Your embed will render inside <code>#askarrow-mount</code>.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="faq">
+      <div class="container">
+        <h2 class="section-title">Frequently asked</h2>
+        <p class="section-sub">Short and sweet. Expand for details.</p>
+
+        <details class="faq-item">
+          <summary>What is the Arrow Solution Lab?</summary>
+          <p>It’s a hands‑on environment where teams validate architectures, pilot new tools, and capture real metrics—guided by Arrow engineers—before broad rollout.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How does AskArrow differ from a search page?</summary>
+          <p>AskArrow gives conversational guidance, context, and curated sources—plus a path to engage humans—rather than a long list of links.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can we bring our own stack or partner tools?</summary>
+          <p>Yes. The Solution Lab is vendor‑neutral. We’ll meet you where you are and validate against your success criteria.</p>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container" style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap;">
+      <div>© <span id="year"></span> Arrow. All rights reserved.</div>
+      <div>Design system: calm, clear, and keyboard friendly.</div>
+    </div>
+  </footer>
+
+  <script>
+    // Set current year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
